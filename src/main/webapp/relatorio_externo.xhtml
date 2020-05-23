@@ -1,0 +1,62 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h2 class="page-header">Relatório Externo</h2>
+        <br/>
+           <h:form id="formPrincipal">
+            
+            <p:focus context="@form"/>
+            
+            <div class="box box-primary">
+                
+                <div class="box-header with-border">
+                    
+                    <div class="ui-sm-12 ui-g-6 ui-g-nopad"> 
+                        
+                        <div class="ui-sm-12 ui-g-11">
+                            
+                            <p:outputLabel value="Relatório"
+                                           for="inptRelatorio"/>
+                            
+                        </div>
+                        
+                        <div class="ui-sm-12 ui-g-11" >
+                            
+                            <p:selectOneMenu id="inptRelatorio"
+                                             value="#{relatorioBean.relatorio}"
+                                             required="true"
+                                             requiredMessage="O tipo de relatório não foi selecionado"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                
+                                <f:selectItems value="#{relatorioBean.tipos}"/>
+                                
+                            </p:selectOneMenu>
+                            
+                            <span class="help-block"> 
+                                
+                                <p:message for="inptRelatorio" /> 
+                                
+                            </span> 
+                            
+                            <p:commandButton id="Relatorio_01"
+                                             ajax="false"
+                                             value="Gerar Relatório"
+                                             action="#{relatorioBean.gerarRelatorio()}"
+                                             onclick="this.form.target = '_blank'" /> 
+                            
+                        </div>
+                    
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Abr-2020 às 04:29
+-- Tempo de geração: 23/05/2020 às 04:49
 -- Versão do servidor: 10.4.11-MariaDB
--- versão do PHP: 7.4.4
+-- Versão do PHP: 7.4.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `apartamento`
+-- Estrutura para tabela `apartamento`
 --
 
 CREATE TABLE `apartamento` (
@@ -34,16 +34,18 @@ CREATE TABLE `apartamento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `apartamento`
+-- Despejando dados para a tabela `apartamento`
 --
 
 INSERT INTO `apartamento` (`idApartamento`, `codigoApartamento`, `categoria_codigoCategoria`) VALUES
-(1, 101, 1);
+(1, 101, 1),
+(2, 102, 1),
+(3, 201, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `categoria`
+-- Estrutura para tabela `categoria`
 --
 
 CREATE TABLE `categoria` (
@@ -54,16 +56,17 @@ CREATE TABLE `categoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `categoria`
+-- Despejando dados para a tabela `categoria`
 --
 
 INSERT INTO `categoria` (`codigoCategoria`, `capacidade`, `tipoCategoria`, `valorDiaria`) VALUES
-(1, 2, 'A1', 300);
+(1, 2, 'A1', 300),
+(2, 3, 'A2', 450);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `item`
+-- Estrutura para tabela `item`
 --
 
 CREATE TABLE `item` (
@@ -75,7 +78,7 @@ CREATE TABLE `item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `item`
+-- Despejando dados para a tabela `item`
 --
 
 INSERT INTO `item` (`idItem`, `codItem`, `nomeItem`, `descricaoItem`, `valorItem`) VALUES
@@ -84,7 +87,7 @@ INSERT INTO `item` (`idItem`, `codItem`, `nomeItem`, `descricaoItem`, `valorItem
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `reservas`
+-- Estrutura para tabela `reservas`
 --
 
 CREATE TABLE `reservas` (
@@ -98,10 +101,19 @@ CREATE TABLE `reservas` (
   `usuarios_codUsuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Despejando dados para a tabela `reservas`
+--
+
+INSERT INTO `reservas` (`codigoReserva`, `dataEntrada`, `dataSaida`, `numeroHospedes`, `status`, `valorPago`, `Apartamento_codigoApartamento`, `usuarios_codUsuario`) VALUES
+(1, '2020-05-26', '2020-05-28', 3, 'Concluído', 450, 101, 23),
+(2, '2020-05-29', '2020-05-31', 2, 'reservado', 300, 101, 23),
+(3, '2020-06-05', '2020-06-07', 2, 'reservado', 300, 101, 23);
+
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -114,65 +126,66 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `usuarios`
+-- Despejando dados para a tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`idUsuario`, `codUsuario`, `contatoUsuario`, `emailUsuario`, `nomeUsuario`, `tipoUsuariol`) VALUES
 (3, 0, '984291559', 'carlostiagojf@hotmail.com', 'Tiago Oliveira', 'Gerente'),
 (4, 0, '984266544', 'asd', 'teste', 'Gerente'),
 (5, 2, '145235234524', 'aaa', 'Pablo', 'Cliente'),
-(6, 3, '984291559', 'sss', 'gerin', 'Atendente');
+(6, 3, '984291559', 'sss', 'gerin', 'Atendente'),
+(7, 23, '45354664432', 'email@asd.br', 'Mario', 'Cliente');
 
 --
--- Índices para tabelas despejadas
+-- Índices de tabelas apagadas
 --
 
 --
--- Índices para tabela `apartamento`
+-- Índices de tabela `apartamento`
 --
 ALTER TABLE `apartamento`
   ADD PRIMARY KEY (`idApartamento`),
   ADD KEY `FK_Apartamento_categoria_codigoCategoria` (`categoria_codigoCategoria`);
 
 --
--- Índices para tabela `categoria`
+-- Índices de tabela `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`codigoCategoria`);
 
 --
--- Índices para tabela `item`
+-- Índices de tabela `item`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`idItem`);
 
 --
--- Índices para tabela `reservas`
+-- Índices de tabela `reservas`
 --
 ALTER TABLE `reservas`
   ADD PRIMARY KEY (`codigoReserva`);
 
 --
--- Índices para tabela `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`idUsuario`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT de tabelas apagadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `apartamento`
 --
 ALTER TABLE `apartamento`
-  MODIFY `idApartamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idApartamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `codigoCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `codigoCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `item`
@@ -184,20 +197,20 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT de tabela `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `codigoReserva` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigoReserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para dumps de tabelas
 --
 
 --
--- Limitadores para a tabela `apartamento`
+-- Restrições para tabelas `apartamento`
 --
 ALTER TABLE `apartamento`
   ADD CONSTRAINT `FK_Apartamento_categoria_codigoCategoria` FOREIGN KEY (`categoria_codigoCategoria`) REFERENCES `categoria` (`codigoCategoria`);
